@@ -1,1 +1,101 @@
+public class Main {
+    public static int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE; 
+        int maxProfit = 0; 
+        for (int price : prices) {
+            if (price < minPrice) {
+                minPrice = price;  
+            } else {
+                int profit = price - minPrice; 
+                maxProfit = Math.max(maxProfit, profit);  }
+        }
+        
+        return maxProfit;  
+    }
+    public static void main(String[] args) {
+        int[] prices1 = {7, 1, 5, 3, 6, 4};
+        int[] prices2 = {7, 6, 4, 3, 1};
+        System.out.println("Max Profit for prices1: " + maxProfit(prices1));  // Output: 5
+        System.out.println("Max Profit for prices2: " + maxProfit(prices2));  // Output: 0
+    }
+}
 
+//explain:
+Initial Values:
+prices = {7, 1, 5, 3, 6, 4}
+minPrice = Integer.MAX_VALUE (to ensure any price will be smaller than this value initially)
+maxProfit = 0 (we assume no profit initially)
+Dry Run:
+Iteration 1 (price = 7):
+minPrice = Integer.MAX_VALUE (still a very high value).
+price = 7 (current price).
+Check if 7 < Integer.MAX_VALUE: Yes, so minPrice becomes 7.
+No profit is calculated since we haven't yet found a price to sell after buying.
+Updated Values:
+
+minPrice = 7
+maxProfit = 0
+Iteration 2 (price = 1):
+minPrice = 7 (from the previous iteration).
+price = 1 (current price).
+Check if 1 < 7: Yes, so we update minPrice to 1.
+No profit is calculated since we're just updating the minPrice and haven't found a profitable sell yet.
+Updated Values:
+
+minPrice = 1
+maxProfit = 0
+Iteration 3 (price = 5):
+minPrice = 1 (from the previous iteration).
+price = 5 (current price).
+Check if 5 < 1: No, so we don't update minPrice.
+Calculate profit: profit = 5 - 1 = 4.
+Update maxProfit: maxProfit = Math.max(0, 4) = 4 because the new profit is higher than the previous maxProfit.
+Updated Values:
+
+minPrice = 1
+maxProfit = 4
+Iteration 4 (price = 3):
+minPrice = 1 (from the previous iteration).
+price = 3 (current price).
+Check if 3 < 1: No, so we don't update minPrice.
+Calculate profit: profit = 3 - 1 = 2.
+Update maxProfit: maxProfit = Math.max(4, 2) = 4. Since the profit of 2 is less than 4, maxProfit remains the same.
+Updated Values:
+
+minPrice = 1
+maxProfit = 4
+Iteration 5 (price = 6):
+minPrice = 1 (from the previous iteration).
+price = 6 (current price).
+Check if 6 < 1: No, so we don't update minPrice.
+Calculate profit: profit = 6 - 1 = 5.
+Update maxProfit: maxProfit = Math.max(4, 5) = 5. Since the profit of 5 is greater than 4, we update maxProfit to 5.
+Updated Values:
+
+minPrice = 1
+maxProfit = 5
+Iteration 6 (price = 4):
+minPrice = 1 (from the previous iteration).
+price = 4 (current price).
+Check if 4 < 1: No, so we don't update minPrice.
+Calculate profit: profit = 4 - 1 = 3.
+Update maxProfit: maxProfit = Math.max(5, 3) = 5. Since the profit of 3 is less than 5, maxProfit remains the same.
+Updated Values:
+
+minPrice = 1
+maxProfit = 5
+Final Result:
+After all iterations, the maximum profit that can be achieved is 5.
+
+Output:
+java
+Copy code
+Max Profit for prices1: 5
+Summary of Each Step:
+minPrice is updated whenever a new lower price is found.
+maxProfit is updated whenever a higher profit is found by selling at the current price.
+The final result (maxProfit = 5) is the maximum profit obtainable, which is achieved by buying at 1 and selling at 6.
+Time Complexity:
+O(n) where n is the number of days (length of the prices array). We are iterating through the array only once.
+Space Complexity:
+O(1) since we are only using a few extra variables to keep track of the minimum price and maximum profit.
