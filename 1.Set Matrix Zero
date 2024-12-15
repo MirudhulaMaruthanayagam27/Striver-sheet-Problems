@@ -1,0 +1,55 @@
+import java.util.Arrays;
+public class Main {
+    public static void setZeroes(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        // Step 1: Use -1 as a marker for rows and columns that should be set to 0
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrix[i][j] == 0) {
+                    // Mark all cells in the row with -1 (except the cells that are 0)
+                    for (int k = 0; k < cols; k++) {
+                        if (matrix[i][k] != 0) {
+                            matrix[i][k] = -1;
+                        }
+                    }
+                    // Mark all cells in the column with -1 (except the cells that are 0)
+                    for (int k = 0; k < rows; k++) {
+                        if (matrix[k][j] != 0) {
+                            matrix[k][j] = -1;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Step 2: Convert all -1 markers to 0
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrix[i][j] == -1) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 1, 1},
+            {2, 0, 1},
+            {1, 1, 0}
+        };
+
+        System.out.println("Original Matrix:");
+        for (int[] row : matrix) {
+            System.out.println(Arrays.toString(row));
+        }
+
+        setZeroes(matrix);
+
+        System.out.println("\nModified Matrix:");
+        for (int[] row : matrix) {
+            System.out.println(Arrays.toString(row));
+        }
+    }
+}
